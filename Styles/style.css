@@ -33,6 +33,8 @@ body {
     height: 852px;
     width: 393px;
     background-color: var(--black);
+    position: relative;
+
 }
 .title {
     font-size: 38px ;
@@ -42,12 +44,78 @@ body {
 }
 .button {
     background-color: var(--orange);
-    padding: 5px 20px;
+    padding: 5px 30px;
     border-radius: 30px;
+    font-size: 24px;
 }
 .buttonsDown {
     display: flex;
-    gap: 20px;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 55px; 
+    left: 40px;
+    right: 40px;
+    
+    
+}
+.chooseTitle {
+    font-size: 26px;
+    text-align: center;
+    color: var(--orange);
+    border-bottom: 1px solid var(--orange);
+    padding-bottom: 5px;
+}
+.threeChoices {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+
+}
+.choice {
+    font-size: 24px;
+    color: var(--orange);
+}
+.radioButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 110px;
+    padding-top: 8px;
+    
+}
+.rbutton {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    outline: none;
+    background-color: var(--black);
+    border: 1px solid var(--orange);
+    cursor: pointer;
+    border-radius: 50%;
+    
+}
+.rbutton:checked {
+    background-color: var(--orange);
+}
+.SizeBoilBox {
+    padding-bottom: 64px;
+}
+
+.eggLayout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.egg {
+    width: 110px;
+    height: 170px;
+    background-color: var(--white);
+    border-radius: 100%;
+}
+#time {
+    font-size: 64px;
+    color: var(--orange);
 }
 
 

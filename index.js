@@ -14,6 +14,5 @@ listPageButton.addEventListener("click", function () {
 homePageButton.addEventListener("click", function() {
     homePage.style.display = "block"
     listPage.style.display = "none"
-    console.log("clikc")
 })
 
