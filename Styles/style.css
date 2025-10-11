@@ -1,0 +1,65 @@
+@font-face {
+    font-family: Encode_Sans; 
+    src: url(EncodeSans-VariableFont_wdth\,wght.ttf);
+}
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    
+}
+:root {
+    --black: rgba(33, 33, 33, 1);
+    --white: rgba(246, 241, 233, 1);
+    --red: rgba(253, 65, 65, 1);
+    --orange: rgba(255, 132, 0, 1);
+    --green: rgba(46, 199, 64, 1);
+}
+
+body {
+    font-family: Encode_Sans;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+#phone { /*Iphone 15 pro*/
+    padding: 85px 40px 55px 40px;
+    height: 852px;
+    width: 393px;
+    background-color: var(--black);
+}
+.title {
+    font-size: 38px ;
+    font-weight: bold;
+    color: var(--orange);
+    padding-bottom: 64px;
+}
+.button {
+    background-color: var(--orange);
+    padding: 5px 20px;
+    border-radius: 30px;
+}
+.buttonsDown {
+    display: flex;
+    gap: 20px;
+}
+
+
+
+
+
+
+
+/*
+List Page
+*/
+
+#listPage {
+    display: none;
+}
