@@ -9,6 +9,8 @@ let container = document.getElementById("container")
 listPageButton.addEventListener("click", function () {
     homePage.style.display = "none";
     listPage.style.display = "block";
+    console.log("klick")
+    addToContainer()
 });
 homePageButton.addEventListener("click", function() {
     homePage.style.display = "block"
@@ -25,7 +27,6 @@ let boilningForEgg;
 let radioButtonSize = document.querySelectorAll("input[name = 'size']")
 for(let i = 0; i<radioButtonSize.length; i++) {
     radioButtonSize[i].addEventListener("click", function() {
-        console.log(radioButtonSize[i].value)
         sizeForEgg = radioButtonSize[i].value;
         calcTimeEgg()
 
@@ -36,7 +37,6 @@ for(let i = 0; i<radioButtonSize.length; i++) {
 let radioButtonsBoilning = document.querySelectorAll("input[name='boilning']")
 for(let i = 0; i<radioButtonsBoilning.length; i++) {
     radioButtonsBoilning[i].addEventListener("click", function() {
-        console.log(radioButtonsBoilning[i].value);
         boilningForEgg = radioButtonsBoilning[i].value;
         calcTimeEgg()
     })
@@ -51,7 +51,7 @@ addList.addEventListener("click", function() {
     }
     eggArray.push(newEgg)
     console.log(eggArray)
-    addToContainer()
+    
 })
 
 
@@ -101,7 +101,33 @@ function calcTimeEgg() {
 }
 
 function addToContainer() {
+    container.innerHTML = "";
     for(let egg of eggArray) {
+        const theEgg = document.createElement("div");
+        const eggsInContainer = document.createElement("div");
+        eggsInContainer.classList.add("eggsInContainer");
         
+        const size = document.createElement("p");
+        size.textContent = egg.size;
+        const boilning = document.createElement("p");
+        boilning.textContent = egg.boilning;
+        eggsInContainer.appendChild(size);
+        eggsInContainer.appendChild(boilning);
+        
+        const timeForEgg = document.createElement("p");
+        timeForEgg.classList.add("timeForEgg");
+        timeForEgg.textContent = egg.time;
+        
+        const buttonForEgg = document.createElement("div");
+        buttonForEgg.classList.add("buttonForEgg");
+        const deletePElement = document.createElement("p");
+        deletePElement.textContent = "Delete";
+        buttonForEgg.appendChild(deletePElement);
+        
+        theEgg.appendChild(eggsInContainer);
+        theEgg.appendChild(timeForEgg);
+        theEgg.appendChild(buttonForEgg);
+        
+        container.appendChild(theEgg);
     }
 }
