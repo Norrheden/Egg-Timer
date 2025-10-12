@@ -5,11 +5,11 @@ let homePageButton = document.getElementById("homePageButton");
 let addList = document.getElementById("addList");
 let time = document.getElementById("time");
 let container = document.getElementById("container")
+let bigEgg = document.getElementById("bigEgg")
 //Home and list page
 listPageButton.addEventListener("click", function () {
     homePage.style.display = "none";
     listPage.style.display = "block";
-    console.log("klick")
     addToContainer()
 });
 homePageButton.addEventListener("click", function() {
@@ -44,6 +44,7 @@ for(let i = 0; i<radioButtonsBoilning.length; i++) {
 
 //Add to egg array
 addList.addEventListener("click", function() {
+    
     let newEgg = {
         size: sizeForEgg,
         boilning: boilningForEgg,
@@ -60,41 +61,60 @@ addList.addEventListener("click", function() {
 
 function calcTimeEgg() {
     //Source ica 
-    if(sizeForEgg === "small" && boilningForEgg === "soft") {
+    if(sizeForEgg === "S" && boilningForEgg === "S") {
+        bigEgg.style.width = "110px"
+        bigEgg.style.height = "170px"
         time.textContent = "06:00"
+        
         return "06:00"
     }
-    if(sizeForEgg === "small" && boilningForEgg === "medium") {
+    if(sizeForEgg === "S" && boilningForEgg === "M") {
+        bigEgg.style.width = "110px"
+        bigEgg.style.height = "170px"
         time.textContent = "08:00"
         return "08:00"
     }
-    if(sizeForEgg === "small" && boilningForEgg === "hard") {
+    if(sizeForEgg === "S" && boilningForEgg === "H") {
+        bigEgg.style.width = "110px"
+        bigEgg.style.height = "170px"
         time.textContent = "10:00"
         return "10:00"
     }
 
-    if(sizeForEgg === "medium" && boilningForEgg === "soft") {
+    if(sizeForEgg === "M" && boilningForEgg === "S") {
         time.textContent = "07:00"
+        bigEgg.style.width = "120px"
+        bigEgg.style.height = "180px"
         return "07:00"
     }
-    if(sizeForEgg === "medium" && boilningForEgg === "medium") {
+    if(sizeForEgg === "M" && boilningForEgg === "M") {
+        bigEgg.style.width = "120px"
+        bigEgg.style.height = "180px"
         time.textContent = "09:00"
         return "09:00"
     }
-    if(sizeForEgg === "medium" && boilningForEgg === "hard") {
+    if(sizeForEgg === "M" && boilningForEgg === "H") {
+        bigEgg.style.width = "120px"
+        bigEgg.style.height = "180px"
         time.textContent = "11:00"
         return "11:00"
     }
 
-    if(sizeForEgg === "large" && boilningForEgg === "soft") {
+    if(sizeForEgg === "L" && boilningForEgg === "S") {
         time.textContent = "08:00"
+        bigEgg.style.width = "130px"
+        bigEgg.style.height = "190px"
         return "08:00"
     }
-    if(sizeForEgg === "large" && boilningForEgg === "medium") {
+    if(sizeForEgg === "L" && boilningForEgg === "M") {
+        bigEgg.style.width = "130px"
+        bigEgg.style.height = "190px"
         time.textContent = "10:00"
         return "10:00"
     }
-    if(sizeForEgg === "large" && boilningForEgg === "hard") {
+    if(sizeForEgg === "L" && boilningForEgg === "H") {
+        bigEgg.style.width = "130px"
+        bigEgg.style.height = "190px"
         time.textContent = "12:00"
         return "12:00"
     }
