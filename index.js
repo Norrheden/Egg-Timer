@@ -6,6 +6,7 @@ let addList = document.getElementById("addList");
 let time = document.getElementById("time");
 let container = document.getElementById("container")
 let bigEgg = document.getElementById("bigEgg")
+let playButton = document.getElementById("playButton")
 //Home and list page
 listPageButton.addEventListener("click", function () {
     homePage.style.display = "none";
@@ -42,16 +43,19 @@ for(let i = 0; i<radioButtonsBoilning.length; i++) {
     })
 }
 
+let eggId = 1;
 //Add to egg array
 addList.addEventListener("click", function() {
     
     let newEgg = {
+        id:eggId++,
         size: sizeForEgg,
         boilning: boilningForEgg,
         time: calcTimeEgg()
     }
     eggArray.push(newEgg)
     console.log(eggArray)
+
     
 })
 
@@ -126,6 +130,7 @@ function addToContainer() {
         const theEgg = document.createElement("div");
         const eggsInContainer = document.createElement("div");
         eggsInContainer.classList.add("eggsInContainer");
+        eggsInContainer.classList.add(`${egg.id}`)
         
         const size = document.createElement("p");
         size.textContent = egg.size;
@@ -136,10 +141,12 @@ function addToContainer() {
         
         const timeForEgg = document.createElement("p");
         timeForEgg.classList.add("timeForEgg");
+        timeForEgg.classList.add(`${egg.id}`)
         timeForEgg.textContent = egg.time;
         
         const buttonForEgg = document.createElement("div");
         buttonForEgg.classList.add("buttonForEgg");
+        buttonForEgg.classList.add(`${egg.id}`)
         const deletePElement = document.createElement("p");
         deletePElement.textContent = "Delete";
         buttonForEgg.appendChild(deletePElement);
@@ -151,3 +158,46 @@ function addToContainer() {
         container.appendChild(theEgg);
     }
 }
+
+
+playButton.addEventListener("click", startCountDown)
+
+
+
+function startCountDown() {
+    for(let egg of eggArray) {
+        let time = egg.time;
+        let minutes = time.split(":")[0];
+        let seconds = time.split(":")[1];
+        console.log(minutes);
+        console.log(seconds);
+        let ms = 30;
+
+        let getTimeText = document.getElementsByClassName(`timeForEgg ${egg.id}`);
+        let getEggContainer = document.getElementsByClassName(`eggsInContainer ${egg.id}`)
+        let intervalId = setInterval(() => {
+            
+            seconds = String(seconds).padStart(2, "0");
+            if(seconds === "00" && minutes === "00") {
+                clearInterval(intervalId)
+                getTimeText[0].textContent = "Klar!";
+                getEggContainer[0].style.background = "rgba(255, 132, 0, 1)";
+                return
+            }
+
+            if (seconds === "00") {
+                seconds = 59;
+                minutes = String(minutes - 1).padStart(2, "0"); 
+            } else {
+                seconds = seconds - 1; 
+                
+            }
+
+            getTimeText[0].textContent = `${minutes} : ${String(seconds).padStart(2, "0")}`;
+        }, ms);
+        
+        
+    }
+}
+
+
