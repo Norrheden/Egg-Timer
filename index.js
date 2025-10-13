@@ -20,8 +20,8 @@ homePageButton.addEventListener("click", function() {
 
 /////////////////////////////////////
 let eggArray = [];
-let sizeForEgg;
-let boilningForEgg;
+let sizeForEgg = "";
+let boilningForEgg = "";
 
 
 //Event listener for radio size button
@@ -46,15 +46,23 @@ for(let i = 0; i<radioButtonsBoilning.length; i++) {
 let eggId = 1;
 //Add to egg array
 addList.addEventListener("click", function() {
-    
-    let newEgg = {
-        id:eggId++,
-        size: sizeForEgg,
-        boilning: boilningForEgg,
-        time: calcTimeEgg()
+    if(!(sizeForEgg === "" || boilningForEgg === "")) {
+        let newEgg = {
+            id:eggId++,
+            size: sizeForEgg,
+            boilning: boilningForEgg,
+            time: calcTimeEgg(),
+            running: false
+        }
+        eggArray.push(newEgg)
+        console.log(eggArray)  
+        
+    } else {
+
+        time.textContent = "Invalid Input"
+        time.style.fontSize = "26px"
     }
-    eggArray.push(newEgg)
-    console.log(eggArray)
+    
 
     
 })
@@ -69,6 +77,8 @@ function calcTimeEgg() {
         bigEgg.style.width = "110px"
         bigEgg.style.height = "170px"
         time.textContent = "06:00"
+        time.style.fontSize = "64px"
+
         
         return "06:00"
     }
@@ -76,12 +86,16 @@ function calcTimeEgg() {
         bigEgg.style.width = "110px"
         bigEgg.style.height = "170px"
         time.textContent = "08:00"
+        time.style.fontSize = "64px"
+
         return "08:00"
     }
     if(sizeForEgg === "S" && boilningForEgg === "H") {
         bigEgg.style.width = "110px"
         bigEgg.style.height = "170px"
         time.textContent = "10:00"
+        time.style.fontSize = "64px"
+
         return "10:00"
     }
 
@@ -89,18 +103,24 @@ function calcTimeEgg() {
         time.textContent = "07:00"
         bigEgg.style.width = "120px"
         bigEgg.style.height = "180px"
+        time.style.fontSize = "64px"
+
         return "07:00"
     }
     if(sizeForEgg === "M" && boilningForEgg === "M") {
         bigEgg.style.width = "120px"
         bigEgg.style.height = "180px"
         time.textContent = "09:00"
+        time.style.fontSize = "64px"
+
         return "09:00"
     }
     if(sizeForEgg === "M" && boilningForEgg === "H") {
         bigEgg.style.width = "120px"
         bigEgg.style.height = "180px"
         time.textContent = "11:00"
+        time.style.fontSize = "64px"
+
         return "11:00"
     }
 
@@ -108,18 +128,24 @@ function calcTimeEgg() {
         time.textContent = "08:00"
         bigEgg.style.width = "130px"
         bigEgg.style.height = "190px"
+        time.style.fontSize = "64px"
+
         return "08:00"
     }
     if(sizeForEgg === "L" && boilningForEgg === "M") {
         bigEgg.style.width = "130px"
         bigEgg.style.height = "190px"
         time.textContent = "10:00"
+        time.style.fontSize = "64px"
+
         return "10:00"
     }
     if(sizeForEgg === "L" && boilningForEgg === "H") {
         bigEgg.style.width = "130px"
         bigEgg.style.height = "190px"
         time.textContent = "12:00"
+        time.style.fontSize = "64px"
+
         return "12:00"
     }
 }
@@ -160,44 +186,53 @@ function addToContainer() {
 }
 
 
-playButton.addEventListener("click", startCountDown)
-
-
+let globalIntervalId;
 
 function startCountDown() {
-    for(let egg of eggArray) {
-        let time = egg.time;
-        let minutes = time.split(":")[0];
-        let seconds = time.split(":")[1];
-        console.log(minutes);
-        console.log(seconds);
-        let ms = 30;
+    if (playButton.classList.contains("startTimerStyle")) {
+        playButton.classList.remove("startTimerStyle");
+        playButton.classList.add("pauseTimerStyle");
+        playButton.innerHTML = `<svg class="Icon" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M25.6667 34.8333V9.16663H33V34.8333H25.6667ZM11 34.8333V9.16663H18.3333V34.8333H11Z" fill="#1D1B20"/>
+                                </svg>`;
+        isPaused = false; // Återuppta timern
+    } else {
+        playButton.classList.remove("pauseTimerStyle");
+        playButton.classList.add("startTimerStyle");
+        playButton.innerHTML = `<svg class="Icon" width="30" height="38" viewBox="0 0 30 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path id="Icon" d="M2.1665 2.5L27.8332 19L2.1665 35.5V2.5Z" stroke="#1E1E1E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>`;
+        isPaused = true; // Pausa timern
+    }
 
-        let getTimeText = document.getElementsByClassName(`timeForEgg ${egg.id}`);
-        let getEggContainer = document.getElementsByClassName(`eggsInContainer ${egg.id}`)
-        let intervalId = setInterval(() => {
-            
-            seconds = String(seconds).padStart(2, "0");
-            if(seconds === "00" && minutes === "00") {
-                clearInterval(intervalId)
-                getTimeText[0].textContent = "Klar!";
-                getEggContainer[0].style.background = "rgba(255, 132, 0, 1)";
-                return
+    if (!globalIntervalId) {
+        globalIntervalId = setInterval(() => {
+            if (isPaused) return;
+
+            for (let egg of eggArray) {
+                let [minutes, seconds] = egg.time.split(":").map(Number);
+
+                if (seconds === 0 && minutes === 0) {
+                    egg.running = false;
+                    document.getElementsByClassName(`timeForEgg ${egg.id}`)[0].textContent = "Klar!";
+                    document.getElementsByClassName(`eggsInContainer ${egg.id}`)[0].style.background = "rgba(255, 132, 0, 1)";
+                    continue;
+                }
+
+                if (seconds === 0) {
+                    seconds = 59;
+                    minutes -= 1;
+                } else {
+                    seconds -= 1;
+                }
+
+                egg.time = `${String(minutes).padStart(2, "0")} : ${String(seconds).padStart(2, "0")}`;
+                document.getElementsByClassName(`timeForEgg ${egg.id}`)[0].textContent = egg.time;
             }
-
-            if (seconds === "00") {
-                seconds = 59;
-                minutes = String(minutes - 1).padStart(2, "0"); 
-            } else {
-                seconds = seconds - 1; 
-                
-            }
-
-            getTimeText[0].textContent = `${minutes} : ${String(seconds).padStart(2, "0")}`;
-        }, ms);
-        
-        
+        }, 1000);
     }
 }
+
+playButton.addEventListener("click", startCountDown);
 
 
