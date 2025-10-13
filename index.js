@@ -156,7 +156,7 @@ function addToContainer() {
         const theEgg = document.createElement("div");
         const eggsInContainer = document.createElement("div");
         eggsInContainer.classList.add("eggsInContainer");
-        eggsInContainer.classList.add(`${egg.id}`)
+        eggsInContainer.classList.add(`${egg.id}`);
         
         const size = document.createElement("p");
         size.textContent = egg.size;
@@ -167,19 +167,20 @@ function addToContainer() {
         
         const timeForEgg = document.createElement("p");
         timeForEgg.classList.add("timeForEgg");
-        timeForEgg.classList.add(`${egg.id}`)
+        timeForEgg.classList.add(`${egg.id}`);
         timeForEgg.textContent = egg.time;
         
-        const buttonForEgg = document.createElement("div");
-        buttonForEgg.classList.add("buttonForEgg");
-        buttonForEgg.classList.add(`${egg.id}`)
+        const deleteButtonEgg = document.createElement("div");
+        deleteButtonEgg.classList.add("deleteButtonEgg");
+        deleteButtonEgg.classList.add(`${egg.id}`);
         const deletePElement = document.createElement("p");
         deletePElement.textContent = "Delete";
-        buttonForEgg.appendChild(deletePElement);
+        deleteButtonEgg.appendChild(deletePElement);
+        addEventListnerDeleteButton(deleteButtonEgg, egg);
         
         theEgg.appendChild(eggsInContainer);
         theEgg.appendChild(timeForEgg);
-        theEgg.appendChild(buttonForEgg);
+        theEgg.appendChild(deleteButtonEgg);
         
         container.appendChild(theEgg);
     }
@@ -236,3 +237,17 @@ function startCountDown() {
 playButton.addEventListener("click", startCountDown);
 
 
+function addEventListnerDeleteButton(element,thisEgg) {
+    element.addEventListener("click", function() {
+        for(let i = 0; i < eggArray.length; i++) {
+            if(eggArray[i].id === thisEgg.id) {
+                eggArray.splice(i, 1);
+                addToContainer();
+                break;
+            }
+
+        }
+        
+    })
+
+}

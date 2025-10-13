@@ -159,7 +159,7 @@ List Page
     justify-content: center;
     flex-direction: column;
 }
-.buttonForEgg {
+.deleteButtonEgg {
     text-align: center;
     color: var(--black);
     background-color: var(--red);
