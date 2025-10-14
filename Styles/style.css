@@ -50,7 +50,7 @@ body {
 
 }
 .button:active {
-    background-color: rgb(163, 84, 0); ;
+    background-color: rgb(163, 84, 0) ;
 
 }
 .buttonsDown {
@@ -117,10 +117,17 @@ body {
     height: 170px;
     background-color: var(--white);
     border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 #time {
     font-size: 64px;
     color: var(--orange);
+}
+.textInsideEgg {
+    font-size: 26px;
 }
 
 
@@ -165,6 +172,9 @@ List Page
     background-color: var(--red);
     font-size: 16px;
     border-radius: 30px;
+}
+.deleteButtonEgg:active {
+    background-color: rgb(206, 49, 49);
 }
 .timeForEgg {
     font-size: 24px;

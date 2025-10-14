@@ -7,6 +7,8 @@ let time = document.getElementById("time");
 let container = document.getElementById("container")
 let bigEgg = document.getElementById("bigEgg")
 let playButton = document.getElementById("playButton")
+let sizeInsideEgg = document.getElementById("sizeInsideEgg")
+let boilningInsideEgg = document.getElementById("boilningInsideEgg")
 //Home and list page
 listPageButton.addEventListener("click", function () {
     homePage.style.display = "none";
@@ -29,6 +31,7 @@ let radioButtonSize = document.querySelectorAll("input[name = 'size']")
 for(let i = 0; i<radioButtonSize.length; i++) {
     radioButtonSize[i].addEventListener("click", function() {
         sizeForEgg = radioButtonSize[i].value;
+        sizeInsideEgg.textContent = radioButtonSize[i].value;
         calcTimeEgg()
 
 
@@ -39,6 +42,8 @@ let radioButtonsBoilning = document.querySelectorAll("input[name='boilning']")
 for(let i = 0; i<radioButtonsBoilning.length; i++) {
     radioButtonsBoilning[i].addEventListener("click", function() {
         boilningForEgg = radioButtonsBoilning[i].value;
+        boilningInsideEgg.textContent = radioButtonsBoilning[i].value;
+
         calcTimeEgg()
     })
 }
@@ -74,8 +79,8 @@ addList.addEventListener("click", function() {
 function calcTimeEgg() {
     //Source ica 
     if(sizeForEgg === "S" && boilningForEgg === "S") {
-        bigEgg.style.width = "110px"
-        bigEgg.style.height = "170px"
+        //bigEgg.style.width = "110px"
+        //bigEgg.style.height = "170px"
         time.textContent = "06:00"
         time.style.fontSize = "64px"
 
@@ -83,16 +88,16 @@ function calcTimeEgg() {
         return "06:00"
     }
     if(sizeForEgg === "S" && boilningForEgg === "M") {
-        bigEgg.style.width = "110px"
-        bigEgg.style.height = "170px"
+        //bigEgg.style.width = "110px"
+        //bigEgg.style.height = "170px"
         time.textContent = "08:00"
         time.style.fontSize = "64px"
 
         return "08:00"
     }
     if(sizeForEgg === "S" && boilningForEgg === "H") {
-        bigEgg.style.width = "110px"
-        bigEgg.style.height = "170px"
+        //bigEgg.style.width = "110px"
+        //bigEgg.style.height = "170px"
         time.textContent = "10:00"
         time.style.fontSize = "64px"
 
@@ -101,23 +106,23 @@ function calcTimeEgg() {
 
     if(sizeForEgg === "M" && boilningForEgg === "S") {
         time.textContent = "07:00"
-        bigEgg.style.width = "120px"
-        bigEgg.style.height = "180px"
+        //bigEgg.style.width = "120px"
+        //bigEgg.style.height = "180px"
         time.style.fontSize = "64px"
 
         return "07:00"
     }
     if(sizeForEgg === "M" && boilningForEgg === "M") {
-        bigEgg.style.width = "120px"
-        bigEgg.style.height = "180px"
+        //bigEgg.style.width = "120px"
+        //bigEgg.style.height = "180px"
         time.textContent = "09:00"
         time.style.fontSize = "64px"
 
         return "09:00"
     }
     if(sizeForEgg === "M" && boilningForEgg === "H") {
-        bigEgg.style.width = "120px"
-        bigEgg.style.height = "180px"
+        //bigEgg.style.width = "120px"
+        //bigEgg.style.height = "180px"
         time.textContent = "11:00"
         time.style.fontSize = "64px"
 
@@ -126,23 +131,23 @@ function calcTimeEgg() {
 
     if(sizeForEgg === "L" && boilningForEgg === "S") {
         time.textContent = "08:00"
-        bigEgg.style.width = "130px"
-        bigEgg.style.height = "190px"
+        //bigEgg.style.width = "130px"
+        //bigEgg.style.height = "190px"
         time.style.fontSize = "64px"
 
         return "08:00"
     }
     if(sizeForEgg === "L" && boilningForEgg === "M") {
-        bigEgg.style.width = "130px"
-        bigEgg.style.height = "190px"
+        //bigEgg.style.width = "130px"
+        //bigEgg.style.height = "190px"
         time.textContent = "10:00"
         time.style.fontSize = "64px"
 
         return "10:00"
     }
     if(sizeForEgg === "L" && boilningForEgg === "H") {
-        bigEgg.style.width = "130px"
-        bigEgg.style.height = "190px"
+        //bigEgg.style.width = "130px"
+        //bigEgg.style.height = "190px"
         time.textContent = "12:00"
         time.style.fontSize = "64px"
 
@@ -188,7 +193,7 @@ function addToContainer() {
 
 
 let globalIntervalId;
-
+let isPaused;
 function startCountDown() {
     if (playButton.classList.contains("startTimerStyle")) {
         playButton.classList.remove("startTimerStyle");
@@ -196,19 +201,21 @@ function startCountDown() {
         playButton.innerHTML = `<svg class="Icon" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M25.6667 34.8333V9.16663H33V34.8333H25.6667ZM11 34.8333V9.16663H18.3333V34.8333H11Z" fill="#1D1B20"/>
                                 </svg>`;
-        isPaused = false; // Återuppta timern
+        isPaused = false; 
     } else {
         playButton.classList.remove("pauseTimerStyle");
         playButton.classList.add("startTimerStyle");
         playButton.innerHTML = `<svg class="Icon" width="30" height="38" viewBox="0 0 30 38" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path id="Icon" d="M2.1665 2.5L27.8332 19L2.1665 35.5V2.5Z" stroke="#1E1E1E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>`;
-        isPaused = true; // Pausa timern
+        isPaused = true; 
     }
 
     if (!globalIntervalId) {
         globalIntervalId = setInterval(() => {
-            if (isPaused) return;
+            if (isPaused) {
+                return;
+            } 
 
             for (let egg of eggArray) {
                 let [minutes, seconds] = egg.time.split(":").map(Number);
@@ -230,7 +237,7 @@ function startCountDown() {
                 egg.time = `${String(minutes).padStart(2, "0")} : ${String(seconds).padStart(2, "0")}`;
                 document.getElementsByClassName(`timeForEgg ${egg.id}`)[0].textContent = egg.time;
             }
-        }, 1000);
+        }, 20);
     }
 }
 
