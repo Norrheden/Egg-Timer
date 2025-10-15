@@ -20,10 +20,9 @@
 
 body {
     font-family: Encode_Sans;
-    height: 100vh;
+    height: 690px;
     display: flex;
     justify-content: center;
-    align-items: center;
 
 }
 
@@ -148,7 +147,7 @@ List Page
 }
 
 #container {
-    height: 450px;
+    height: 400px;
     overflow-y: scroll;
     overflow-x: hidden;
     display: grid;
