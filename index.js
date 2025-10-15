@@ -20,25 +20,32 @@ homePageButton.addEventListener("click", function() {
     listPage.style.display = "none"
 })
 
-/////////////////////////////////////
+
 let eggArray = [];
 let sizeForEgg = "";
 let boilningForEgg = "";
 
 
-//Event listener for radio size button
 let radioButtonSize = document.querySelectorAll("input[name = 'size']")
+
+for(let i = 0; i<radioButtonSize.length; i++) {
+    radioButtonSize[i].checked = false
+}
+
 for(let i = 0; i<radioButtonSize.length; i++) {
     radioButtonSize[i].addEventListener("click", function() {
         sizeForEgg = radioButtonSize[i].value;
         sizeInsideEgg.textContent = radioButtonSize[i].value;
         calcTimeEgg()
-
-
     }) 
 }
-//Event listener for radio boilning button
+
 let radioButtonsBoilning = document.querySelectorAll("input[name='boilning']")
+for(let i = 0; i<radioButtonsBoilning.length; i++) {
+    radioButtonsBoilning[i].checked = false
+
+}
+
 for(let i = 0; i<radioButtonsBoilning.length; i++) {
     radioButtonsBoilning[i].addEventListener("click", function() {
         boilningForEgg = radioButtonsBoilning[i].value;
@@ -49,7 +56,6 @@ for(let i = 0; i<radioButtonsBoilning.length; i++) {
 }
 
 let eggId = 1;
-//Add to egg array
 addList.addEventListener("click", function() {
     if(!(sizeForEgg === "" || boilningForEgg === "")) {
         let newEgg = {
@@ -65,7 +71,7 @@ addList.addEventListener("click", function() {
     } else {
 
         time.textContent = "Invalid Input"
-        time.style.fontSize = "26px"
+        time.style.fontSize = "32px"
     }
     
 
@@ -205,8 +211,8 @@ function startCountDown() {
     } else {
         playButton.classList.remove("pauseTimerStyle");
         playButton.classList.add("startTimerStyle");
-        playButton.innerHTML = `<svg class="Icon" width="30" height="38" viewBox="0 0 30 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path id="Icon" d="M2.1665 2.5L27.8332 19L2.1665 35.5V2.5Z" stroke="#1E1E1E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        playButton.innerHTML = `<svg class = "Icon"width="21" height="26" viewBox="0 0 21 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.666504 25.8333V0.166626L20.8332 13L0.666504 25.8333Z" fill="#1D1B20"/>
                                 </svg>`;
         isPaused = true; 
     }
@@ -224,6 +230,8 @@ function startCountDown() {
                     egg.running = false;
                     document.getElementsByClassName(`timeForEgg ${egg.id}`)[0].textContent = "Klar!";
                     document.getElementsByClassName(`eggsInContainer ${egg.id}`)[0].style.background = "rgba(255, 132, 0, 1)";
+                    document.getElementsByClassName(`eggsInContainer ${egg.id}`)[0].style.color = "rgba(33, 33, 33, 1)";
+
                     continue;
                 }
 
@@ -237,7 +245,7 @@ function startCountDown() {
                 egg.time = `${String(minutes).padStart(2, "0")} : ${String(seconds).padStart(2, "0")}`;
                 document.getElementsByClassName(`timeForEgg ${egg.id}`)[0].textContent = egg.time;
             }
-        }, 20);
+        }, 10);
     }
 }
 
