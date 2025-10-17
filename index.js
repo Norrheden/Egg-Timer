@@ -50,7 +50,6 @@ for(let i = 0; i<radioButtonsBoilning.length; i++) {
     radioButtonsBoilning[i].addEventListener("click", function() {
         boilningForEgg = radioButtonsBoilning[i].value;
         boilningInsideEgg.textContent = radioButtonsBoilning[i].value;
-
         calcTimeEgg()
     })
 }
@@ -266,3 +265,5 @@ function addEventListnerDeleteButton(element,thisEgg) {
     })
 
 }
+
+
